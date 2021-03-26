@@ -8,6 +8,7 @@ import 'package:taxi_express_driver/Widgets/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:taxi_express_driver/main.dart';
+import 'package:taxi_express_driver/mapsConfig.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -310,6 +311,7 @@ class _LoginScreenState extends State<LoginScreen> {
     if(firebaseUser != null){
       driversRef.child(firebaseUser.uid).once().then((DataSnapshot snap){
         if(snap.value != null){
+          currentFirebaseUser = firebaseUser;
           Navigator.pushNamedAndRemoveUntil(context, 'MainScreen', (route) => false);
           displayToastMessage("Logged In", context);
         }
@@ -330,7 +332,7 @@ class _LoginScreenState extends State<LoginScreen> {
     Fluttertoast.showToast(
       msg: msg,
       toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.TOP,
+      gravity: ToastGravity.BOTTOM,
       backgroundColor: Color.fromRGBO(146, 27, 31, 1),
       textColor: Colors.white,
       fontSize: 20,

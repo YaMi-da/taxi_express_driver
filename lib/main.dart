@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:taxi_express_driver/Data/appData.dart';
 import 'package:taxi_express_driver/Screens/carInfoScreen.dart';
+import 'package:taxi_express_driver/mapsConfig.dart';
 import 'Screens/screens.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_launcher_icons/android.dart';
@@ -18,6 +19,9 @@ import 'package:flutter_launcher_icons/xml_templates.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  currentFirebaseUser = FirebaseAuth.instance.currentUser;
+
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -30,6 +34,8 @@ void main() async{
 
 DatabaseReference driversRef = FirebaseDatabase.instance.reference().child
   ("Users").child("Drivers");
+DatabaseReference rideRequestRef = FirebaseDatabase.instance.reference().child("Users").child("Drivers").child(currentFirebaseUser.uid).child
+  ("newRide");
 
 class MyApp extends StatelessWidget {
   @override
@@ -42,7 +48,7 @@ class MyApp extends StatelessWidget {
           fontFamily: "JosefinSans-Medium",
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        initialRoute: 'MainScreen',
+        initialRoute: FirebaseAuth.instance.currentUser == null ? 'LoginScreen' : 'MainScreen',
         routes: {
           '/': (context) => LoginScreen(),
           'Forgot Password':(context) => ForgotPassword(),
