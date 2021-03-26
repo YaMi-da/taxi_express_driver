@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "793938267211",
+    "firebase_url": "https://taxiexpress-5935d-default-rtdb.firebaseio.com",
+    "project_id": "taxiexpress-5935d",
+    "storage_bucket": "taxiexpress-5935d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793938267211:android:c4e6d9aa475304532311ce",
+        "android_client_info": {
+          "package_name": "com.pfe.taxi_express_driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "793938267211-58ek0kitrd40d4f040ofvqtb1p97gv11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuBdVRNHIXcARUTjZEp68kyNrFRSk1Xwg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793938267211-58ek0kitrd40d4f040ofvqtb1p97gv11.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793938267211:android:26433072ab2bd9382311ce",
+        "android_client_info": {
+          "package_name": "com.pfe.taxi_express_rider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "793938267211-58ek0kitrd40d4f040ofvqtb1p97gv11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAuBdVRNHIXcARUTjZEp68kyNrFRSk1Xwg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793938267211-58ek0kitrd40d4f040ofvqtb1p97gv11.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
