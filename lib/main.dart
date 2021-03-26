@@ -37,14 +37,14 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => AppData(),
       child: MaterialApp(
-        title: 'TaxiExpress',
+        title: 'TaxiExpressDriver',
         theme: ThemeData(
           fontFamily: "JosefinSans-Medium",
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        initialRoute: '/',
+        initialRoute: 'MainScreen',
         routes: {
-          '/': (context) => FirebaseAuth.instance.currentUser == null ? LoginScreen() : MainScreen(),
+          '/': (context) => LoginScreen(),
           'Forgot Password':(context) => ForgotPassword(),
           'Create New Account':(context) => CreateNewAccount(),
           'MainScreen':(context) => MainScreen(),
