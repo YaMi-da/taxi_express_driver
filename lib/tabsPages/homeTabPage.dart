@@ -35,7 +35,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
 
   String driverStatusText = "Go Online !";
 
-  Color driverStatusColor = Colors.grey;
+  Color driverStatusColor = Color.fromRGBO(99, 99, 99, 1);
 
   bool driverAvailable = false;
 
@@ -77,16 +77,14 @@ class _HomeTabPageState extends State<HomeTabPage> {
         ),
 
         Container(
-          height: 140.0,
-          width: double.infinity,
-          color: Colors.black54,
+
         ),
         Positioned(
-          top: 40.0,
+          top: 10.0,
           left: 0.0,
           right: 0.0,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -109,7 +107,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
                       else{
                         putDriverOffline();
                         setState(() {
-                          driverStatusColor = Colors.grey;
+                          driverStatusColor = Color.fromRGBO(99, 99, 99, 1);
                           driverStatusText = "Go Online !";
                           driverAvailable = false;
                         });
@@ -122,7 +120,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
                     ),
                     color: driverStatusColor,
                     child: Padding(
-                      padding: const EdgeInsets.all(17.0),
+                      padding: const EdgeInsets.all(13.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -130,7 +128,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
                             driverStatusText,
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: 17,
                               height: 1.5,
                               fontWeight: FontWeight.bold,
                             ),
@@ -141,7 +139,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
                           Icon(
                             Icons.wifi,
                             color: Colors.white,
-                            size: 30.0,
+                            size: 22.0,
                           )
                         ],
                       ),
