@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_geofire/flutter_geofire.dart';
@@ -8,6 +10,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:taxi_express_driver/Assistants/assistantMethods.dart';
+import 'package:taxi_express_driver/Models/drivers.dart';
+import 'package:taxi_express_driver/Notifications/pushNotificationService.dart';
 import 'package:taxi_express_driver/main.dart';
 import 'package:taxi_express_driver/mapsConfig.dart';
 
@@ -29,7 +33,6 @@ class _HomeTabPageState extends State<HomeTabPage> {
 
   double topPaddingOfMap = 0;
 
-  Position currentPosition;
 
   var geoLocator = Geolocator();
 
@@ -38,6 +41,12 @@ class _HomeTabPageState extends State<HomeTabPage> {
   Color driverStatusColor = Color.fromRGBO(99, 99, 99, 1);
 
   bool driverAvailable = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentDriverInfo();
+  }
 
   void locatePosition() async {
     Position position = await Geolocator.getCurrentPosition(
@@ -56,6 +65,21 @@ class _HomeTabPageState extends State<HomeTabPage> {
     });
     print(address);*/
 
+  }
+
+  void getCurrentDriverInfo() async{
+    currentFirebaseUser = await FirebaseAuth.instance.currentUser;
+
+    driversRef.child(currentFirebaseUser.uid).once().then((DataSnapshot dataSnapShot){
+      if(dataSnapShot.value != null){
+        driversInfo = Drivers.fromSnapShot(dataSnapShot);
+      }
+    });
+
+    PushNotificationService pushNotificationService = PushNotificationService();
+
+    pushNotificationService.initialize(context);
+    pushNotificationService.getToken();
   }
 
   @override
@@ -162,6 +186,7 @@ class _HomeTabPageState extends State<HomeTabPage> {
     Geofire.initialize("availableDrivers");
     Geofire.setLocation(currentFirebaseUser.uid, currentPosition.latitude, currentPosition.longitude);
 
+    rideRequestRef.set("searching");
     rideRequestRef.onValue.listen((event) {
 
     });

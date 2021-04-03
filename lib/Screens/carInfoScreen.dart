@@ -399,7 +399,7 @@ class CarInfoScreen extends StatelessWidget {
     String userId = currentFirebaseUser.uid;
 
     Map carInfoMap = {
-      "car_color" : _carColor.text,
+      "car_model" : _carModel.text,
       "car_number" : _carNumber.text,
       "car_license" : _carLicensePlace.text,
       "car_color" : _carColor.text,

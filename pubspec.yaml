@@ -28,9 +28,9 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  firebase_core: ^0.7.0
-  firebase_auth: ^0.20.0+1
-  firebase_database: ^6.0.0
+  firebase_core:
+  firebase_auth:
+  firebase_database:
   font_awesome_flutter: ^8.11.0
   flutter_launcher_icons: ^0.8.1
   flutter_statusbarcolor: ^0.2.3
@@ -50,6 +50,8 @@ dependencies:
   google_maps_webservice:
   path:
   animated_text_kit: ^4.1.0
+  firebase_messaging: ^7.0.3
+  assets_audio_player:
 
 flutter_icons:
   image_path: "images/taxi_express_driver_icon.png"
@@ -82,6 +84,7 @@ flutter:
     - images\destination_marker.png
     - images\taxi.png
     - images\car_marker.png
+    - sounds\alert.mp3
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
