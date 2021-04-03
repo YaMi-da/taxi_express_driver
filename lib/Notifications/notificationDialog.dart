@@ -19,7 +19,7 @@ class NotificationDialog extends StatelessWidget {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       backgroundColor: Colors.transparent,
-      elevation: 1.0,
+      elevation: 3.0,
       child: Container(
         margin: EdgeInsets.all(5.0),
         width: double.infinity,
