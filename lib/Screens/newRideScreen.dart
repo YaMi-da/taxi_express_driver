@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
@@ -13,6 +14,7 @@ import 'package:taxi_express_driver/Assistants/assistantMethods.dart';
 import 'package:taxi_express_driver/Assistants/mapsKitAssistant.dart';
 import 'package:taxi_express_driver/Data/appData.dart';
 import 'package:taxi_express_driver/Models/rideDetails.dart';
+import 'package:taxi_express_driver/Widgets/collectFareDialog.dart';
 import 'package:taxi_express_driver/Widgets/loginLoad.dart';
 import 'package:taxi_express_driver/main.dart';
 import 'package:taxi_express_driver/mapsConfig.dart';
@@ -169,14 +171,14 @@ class _NewRideScreenState extends State<NewRideScreen> {
                   children: [
                     Text(
                       durationRide,
-                      style: TextStyle(fontSize: 14.0, color: Colors.deepPurple),
+                      style: TextStyle(fontSize: 14.0, color: Color.fromRGBO(146, 27, 31, 1)),
                     ),
                     SizedBox(height: 6.0,),
                     SizedBox(height: 6.0,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("admin", style: TextStyle(fontSize: 24.0),),
+                        Text(widget.rideDetails.riderName, style: TextStyle(fontSize: 24.0),),
                         Padding(
                           padding: EdgeInsets.only(right: 10.0),
                           child: Icon(Icons.smartphone_rounded),
@@ -197,7 +199,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
                         Expanded(
                           child: Container(
                             child: Text(
-                              "Street",
+                              widget.rideDetails.pickUpAddress,
                               style: TextStyle(fontSize: 18.0),
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -219,7 +221,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
                         Expanded(
                           child: Container(
                             child: Text(
-                              "street",
+                              widget.rideDetails.destinationAddress,
                               style: TextStyle(fontSize: 18.0),
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -256,6 +258,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
                           else if (status == "arrived"){
                             status = "onTheWay";
                             String rideRequestId= widget.rideDetails.ride_request_id;
+                            newRequestRef.child(rideRequestId).child("status").set(status);
                             setState(() {
                               btnTitle = "End Trip";
                               btnColor = Colors.black;
@@ -414,7 +417,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
 
   void acceptRideRequest(){
     String rideRequestId= widget.rideDetails.ride_request_id;
-    newRequestRef.child(rideRequestId).child("status").set("Accepted");
+    newRequestRef.child(rideRequestId).child("status").set("accepted");
     newRequestRef.child(rideRequestId).child("driver_name").set(driversInfo.name);
     newRequestRef.child(rideRequestId).child("driver_phone").set(driversInfo.phone);
     newRequestRef.child(rideRequestId).child("driver_id").set(driversInfo.id);
@@ -425,6 +428,8 @@ class _NewRideScreenState extends State<NewRideScreen> {
       "longitude": currentPosition.longitude.toString(),
     };
     newRequestRef.child(rideRequestId).child("driver_location").set(locMap);
+
+    driversRef.child(currentFirebaseUser.uid).child("history").child(rideRequestId).set(true);
   }
 
   void updateRideDetails() async{
@@ -482,6 +487,29 @@ class _NewRideScreenState extends State<NewRideScreen> {
     newRequestRef.child(rideRequestId).child("fares").set(fareAmount.toString());
     newRequestRef.child(rideRequestId).child("status").set("ended");
     rideStreamSubscription.cancel();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => CollectFareDialog(paymentMethod: widget.rideDetails.paymentMethod, fareAmount: fareAmount,),
+    );
+
+    saveEarnings(fareAmount);
+
+  }
+
+  void saveEarnings(int fareAmount){
+    driversRef.child(currentFirebaseUser.uid).child("earnings").once().then((DataSnapshot dataSnapShot){
+      if(dataSnapShot != null){
+        double oldEarnings = double.parse(dataSnapShot.value.toString());
+        double totalEarnings = fareAmount + oldEarnings;
+
+        driversRef.child(currentFirebaseUser.uid).child("earnings").set(totalEarnings.toStringAsFixed(2));
+      }
+      else{
+        double totalEarnings = fareAmount.toDouble();
+        driversRef.child(currentFirebaseUser.uid).child("earnings").set(totalEarnings.toStringAsFixed(2));
+      }
+    });
   }
 
 }
