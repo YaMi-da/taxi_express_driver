@@ -53,6 +53,8 @@ dependencies:
   firebase_messaging: ^7.0.3
   assets_audio_player:
   maps_toolkit: ^1.1.0+2
+  intl:
+
 
 flutter_icons:
   image_path: "images/taxi_express_driver_icon.png"
@@ -86,6 +88,8 @@ flutter:
     - images\taxi.png
     - images\car_marker.png
     - sounds\alert.mp3
+    - images\normal_car.png
+    - images\suv_car.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

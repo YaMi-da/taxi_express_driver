@@ -80,6 +80,8 @@ class _HomeTabPageState extends State<HomeTabPage> {
 
     pushNotificationService.initialize(context);
     pushNotificationService.getToken();
+    
+    AssistantMethods.retrieveHistoryInfo(context);
   }
 
   @override

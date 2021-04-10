@@ -1,14 +1,25 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:taxi_express_driver/Widgets/app-wallpaper.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
 
 // ignore: must_be_immutable
-class ForgotPassword extends StatelessWidget {
+class ForgotPassword extends StatefulWidget {
 
+  @override
+  _ForgotPasswordState createState() => _ForgotPasswordState();
+}
+
+class _ForgotPasswordState extends State<ForgotPassword> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  bool _autoValidate = false;
+
+  String _email;
 
   void validate(){
     if(formKey.currentState.validate())
@@ -16,7 +27,6 @@ class ForgotPassword extends StatelessWidget {
     else
       print("Not Validated");
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +86,8 @@ class ForgotPassword extends StatelessWidget {
                       height: 18,
                     ),
                     Form(
-                      autovalidateMode: AutovalidateMode.always,
+                      // ignore: deprecated_member_use
+                      autovalidate: _autoValidate,
                       key: formKey,
                       child: Column(
                         children: [
@@ -122,6 +133,11 @@ class ForgotPassword extends StatelessWidget {
                                     ),
                                   ),
                                 ),
+                                onChanged: (value){
+                                  setState((){
+                                    _email = value;
+                                  });
+                                },
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -148,7 +164,15 @@ class ForgotPassword extends StatelessWidget {
                               width: size.width * 0.95,
                               // ignore: deprecated_member_use
                               child: RaisedButton(
-                                onPressed: validate,
+                                onPressed: () async {
+                                  if(formKey.currentState.validate()){
+                                    _firebaseAuth.sendPasswordResetEmail(email: _email);
+                                    displayToastMessage("Check Your Inbox.", context);
+                                    Navigator.of(context).pop();
+                                  }
+                                  else
+                                    _autoValidate =true;
+                                },
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(16.0),
                                 ),
@@ -175,6 +199,19 @@ class ForgotPassword extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+  displayToastMessage(String msg, BuildContext context, ) {
+    Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.TOP,
+      backgroundColor: Color.fromRGBO(146, 27, 31, 1),
+      textColor: Colors.white,
+      fontSize: 20,
     );
   }
 }
