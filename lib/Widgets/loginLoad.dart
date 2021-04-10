@@ -23,10 +23,15 @@ class LoginLoad extends StatelessWidget {
               CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>
                 (Colors.black),),
               SizedBox(width: 6.0,),
-              Text(
-                message,
-                style: TextStyle(
-                  color: Colors.white, fontSize: 15.0,
+              Expanded(
+                child: Container(
+                  child: Text(
+                    message,
+                    style: TextStyle(
+                      color: Colors.white, fontSize: 15.0,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
             ],

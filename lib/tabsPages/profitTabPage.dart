@@ -13,20 +13,22 @@ class ProfitTabPage extends StatelessWidget {
           color: Colors.black87,
           width: double.infinity,
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 70),
+            padding: EdgeInsets.symmetric(vertical: 150),
             child: Column(
               children: [
                 Text(
                   'Total Profit',
                   style: TextStyle(
+                    fontSize: 30,
                     color: Colors.white,
                   ),
                 ),
+                SizedBox(height: 10,),
                 Text(
                   "\$${Provider.of<AppData>(context, listen: false).profit}",
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 50,
+                    fontSize: 60,
                   ),
                 ),
               ],
