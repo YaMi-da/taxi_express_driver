@@ -18,12 +18,23 @@ class CarInfoScreen extends StatelessWidget {
   TextEditingController _carLicensePlace = TextEditingController();
   TextEditingController _carColor = TextEditingController();
 
+  String selectedCarType;
+  List<String> carTypesList =["regular", "SUV"];
+
   String validateModel(value){
     if(value.isEmpty)
       return "*Model Required.";
     else
       return null;
   }
+
+  String validateType(value){
+    if(value == null)
+      return "*Car Type Required";
+    else
+      return null;
+  }
+
   String validateNumber(value){
     if(value.isEmpty)
       return "*Number Required.";
@@ -338,8 +349,62 @@ class CarInfoScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 30,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
+                          child: Center(
+                            child: DropdownButtonFormField(
+                              decoration: InputDecoration(
+                                contentPadding: new EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+                                filled: true,
+                                fillColor: Colors.grey[500].withOpacity(0.3),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.transparent, width: 1, style: BorderStyle.solid),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.white, width: 1, style: BorderStyle.solid),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                errorBorder: new OutlineInputBorder(
+                                  borderSide: new BorderSide(color: Colors.red, width: 3.0),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                focusedErrorBorder: new OutlineInputBorder(
+                                  borderSide: new BorderSide(color: Colors.red, width: 3.0),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                errorStyle: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              iconSize: 40,
+                              dropdownColor: Color.fromRGBO(88, 88, 88, 1),
+                              iconEnabledColor: Colors.white,
+                              isExpanded: true,
+                              hint: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                child: Text("Car Type", style: TextStyle(color: Colors.white, fontSize: 18),),
+                              ),
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontFamily: "JosefinSans-Medium",
+                              ),
+                              value: selectedCarType,
+                              onChanged: (newValue){
+                                selectedCarType = newValue;
+                              },
+                              validator: validateType,
+                              items: carTypesList.map((car){
+                                return DropdownMenuItem(
+                                  child: new Text(car),
+                                  value: car,
+                                );
+                              }).toList(),
+                            ),
+                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -376,7 +441,7 @@ class CarInfoScreen extends StatelessWidget {
                                       FontAwesomeIcons.checkCircle,
                                       color: Colors.white,
                                       size: 30.0,
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
@@ -403,6 +468,7 @@ class CarInfoScreen extends StatelessWidget {
       "car_number" : _carNumber.text,
       "car_license" : _carLicensePlace.text,
       "car_color" : _carColor.text,
+      "type" : selectedCarType,
     };
     
     driversRef.child(userId).child("car_info").set(carInfoMap);

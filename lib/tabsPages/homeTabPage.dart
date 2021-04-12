@@ -48,6 +48,57 @@ class _HomeTabPageState extends State<HomeTabPage> {
     getCurrentDriverInfo();
   }
 
+  getRideType(){
+    driversRef.child(currentFirebaseUser.uid).child("car_info").child("type").once().then((DataSnapshot snapshot) {
+      if(snapshot.value != null){
+       setState(() {
+         rideType = snapshot.value.toString();
+       });
+      }
+    });
+  }
+
+  getRatings(){
+    driversRef.child(currentFirebaseUser.uid).child("ratings").once().then((DataSnapshot dataSnapshot){
+      if(dataSnapshot.value != null){
+        double ratings = double.parse(dataSnapshot.value.toString());
+        setState(() {
+          starCounter = ratings;
+        });
+        if(starCounter <= 1.5){
+          setState(() {
+            title: "Can't Get Any Worse";
+          });
+          return;
+        }
+        else if(starCounter <= 2.5){
+          setState(() {
+            title: "Not So Good";
+          });
+          return;
+        }
+        else if(starCounter <= 3.5){
+          setState(() {
+            title: "Have Had Better";
+          });
+          return;
+        }
+        else if(starCounter <= 4.5){
+          setState(() {
+            title: "Good Ride";
+          });
+          return;
+        }
+        else if(starCounter <= 5.0){
+          setState(() {
+            title: "Can't Get Any Better";
+          });
+          return;
+        }
+      }
+    });
+  }
+
   void locatePosition() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -82,6 +133,8 @@ class _HomeTabPageState extends State<HomeTabPage> {
     pushNotificationService.getToken();
     
     AssistantMethods.retrieveHistoryInfo(context);
+    getRatings();
+    getRideType();
   }
 
   @override

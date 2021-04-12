@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taxi_express_driver/Assistants/assistantMethods.dart';
 import 'package:taxi_express_driver/Widgets/SearchDivider.dart';
+import 'package:taxi_express_driver/mapsConfig.dart';
 
 class CollectFareDialog extends StatelessWidget {
 
@@ -27,7 +28,7 @@ class CollectFareDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             SizedBox(height: 22.0,),
-            Text("Trip Fare"),
+            Text("Trip Fare (" + rideType.toUpperCase() + ")"),
             SizedBox(height: 22.0,),
 
             DividerWidget(),

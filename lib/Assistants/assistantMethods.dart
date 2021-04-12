@@ -73,8 +73,14 @@ class AssistantMethods{
     double distanceTravelledFare = (directionDetails.distanceValue / 1000) * 0.50;
     double totalFareAmount = timeTravelledFare + distanceTravelledFare;
 
-    //double totalLocalAmount = totalFareAmount * 160;
-    return totalFareAmount.truncate();
+    if(rideType == "regular"){
+      return totalFareAmount.truncate();
+    }
+
+    else if(rideType == "SUV"){
+      double result = (totalFareAmount.truncate()) * 2.0;
+      return result.truncate();
+    }
 
   }
 
@@ -101,12 +107,14 @@ class AssistantMethods{
   }
 
   static void retrieveHistoryInfo(context){
+
     driversRef.child(currentFirebaseUser.uid).child("earnings").once().then((DataSnapshot dataSnapshot){
       if(dataSnapshot.value != null){
         String profit = dataSnapshot.value.toString();
         Provider.of<AppData>(context, listen: false).updateProfit(profit);
       }
     });
+
     driversRef.child(currentFirebaseUser.uid).child("history").once().then((DataSnapshot dataSnapshot){
       if(dataSnapshot.value != null){
         Map<dynamic, dynamic> keys = dataSnapshot.value;

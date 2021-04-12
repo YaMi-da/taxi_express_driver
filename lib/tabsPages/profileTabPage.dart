@@ -10,15 +10,16 @@ class ProfileTabPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(73, 74, 80, 1),
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
+              width: double.infinity,
               height: 300,
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Colors.black,
                   borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(40.0),
                     bottomRight: Radius.circular(40.0),
@@ -39,7 +40,7 @@ class ProfileTabPage extends StatelessWidget {
                     driversInfo.name,
                     style: TextStyle(
                       fontSize: 65.0,
-                      color: Colors.black,
+                      color: Colors.white,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -54,10 +55,10 @@ class ProfileTabPage extends StatelessWidget {
                   ),
                   SizedBox(height: 20,),
                   Text(
-                    title + "driver",
+                    "Driver",
                     style: TextStyle(
                       fontSize: 25.0,
-                      color: Colors.black,
+                      color: Colors.white,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -178,12 +179,12 @@ class InfoCard extends StatelessWidget {
         child: ListTile(
           leading: Icon(
             icon,
-            color: Colors.white,
+            color: Colors.black,
           ),
           title: Text(
             text,
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: 16.0,
             ),
           ),
