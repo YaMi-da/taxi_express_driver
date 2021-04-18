@@ -60,11 +60,15 @@ class HistoryItem extends StatelessWidget {
                     size: 18,
                   ),
                   SizedBox(width: 18,),
-                  Text(
-                    history.destination,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 18,
+                  Expanded(
+                    child: Container(
+                      child: Text(
+                        history.destination,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
                     ),
                   ),
                 ],
