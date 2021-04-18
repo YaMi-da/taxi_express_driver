@@ -69,8 +69,8 @@ class AssistantMethods{
   }
   static int calculateFares(DirectionDetails directionDetails){
 
-    double timeTravelledFare = (directionDetails.durationValue / 60) * 0.50;
-    double distanceTravelledFare = (directionDetails.distanceValue / 1000) * 0.50;
+    double timeTravelledFare = (directionDetails.durationValue / 60) * 0.20;
+    double distanceTravelledFare = (directionDetails.distanceValue / 1000) * 0.20;
     double totalFareAmount = timeTravelledFare + distanceTravelledFare;
 
     if(rideType == "regular"){
@@ -80,6 +80,9 @@ class AssistantMethods{
     else if(rideType == "SUV"){
       double result = (totalFareAmount.truncate()) * 2.0;
       return result.truncate();
+    }
+    else{
+      return totalFareAmount.truncate();
     }
 
   }
@@ -107,7 +110,6 @@ class AssistantMethods{
   }
 
   static void retrieveHistoryInfo(context){
-
     driversRef.child(currentFirebaseUser.uid).child("earnings").once().then((DataSnapshot dataSnapshot){
       if(dataSnapshot.value != null){
         String profit = dataSnapshot.value.toString();

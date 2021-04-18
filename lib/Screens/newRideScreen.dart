@@ -265,7 +265,6 @@ class _NewRideScreenState extends State<NewRideScreen> {
                             });
 
                             initTimer();
-
                           }
                           else if (status == "onTheWay"){
                             endTheTrip();
@@ -499,7 +498,7 @@ class _NewRideScreenState extends State<NewRideScreen> {
 
   void saveEarnings(int fareAmount){
     driversRef.child(currentFirebaseUser.uid).child("earnings").once().then((DataSnapshot dataSnapShot){
-      if(dataSnapShot != null){
+      if(dataSnapShot.value != null){
         double oldEarnings = double.parse(dataSnapShot.value.toString());
         double totalEarnings = fareAmount + oldEarnings;
 

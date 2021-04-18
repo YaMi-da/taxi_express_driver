@@ -60,7 +60,8 @@ class _RatingTabPageState extends State<RatingTabPage> {
 
               Text(
                 title,
-                style: TextStyle(fontSize: 45.0, color: Color.fromRGBO(146, 27, 31, 1),),
+                style: TextStyle(fontSize: 35.0, color: Color.fromRGBO(146, 27, 31, 1),),
+                textAlign: TextAlign.center,
               ),
 
               SizedBox(height: 16.0,),

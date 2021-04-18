@@ -67,31 +67,31 @@ class _HomeTabPageState extends State<HomeTabPage> {
         });
         if(starCounter <= 1.5){
           setState(() {
-            title: "Can't Get Any Worse";
+            title = "Can't Get Any Worse";
           });
           return;
         }
-        else if(starCounter <= 2.5){
+        if(starCounter <= 2.5){
           setState(() {
-            title: "Not So Good";
+            title = "Not So Good";
           });
           return;
         }
-        else if(starCounter <= 3.5){
+        if(starCounter <= 3.5){
           setState(() {
-            title: "Have Had Better";
+            title = "Have Had Better";
           });
           return;
         }
-        else if(starCounter <= 4.5){
+        if(starCounter <= 4.5){
           setState(() {
-            title: "Good Ride";
+            title =  "Good Ride";
           });
           return;
         }
-        else if(starCounter <= 5.0){
+        if(starCounter <= 5.0){
           setState(() {
-            title: "Can't Get Any Better";
+            title =  "Can't Get Any Better";
           });
           return;
         }
